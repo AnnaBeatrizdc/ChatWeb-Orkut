@@ -1,26 +1,34 @@
+using ChatWeb.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Adiciona Razor Pages
 builder.Services.AddRazorPages();
+
+// Adiciona SignalR
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 
+// Permite acessar arquivos da pasta wwwroot
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
+// Mapeia as páginas
+app.MapRazorPages();
+
+// Mapeia o Hub do SignalR
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
