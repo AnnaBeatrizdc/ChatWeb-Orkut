@@ -1,31 +1,64 @@
-html {
-  font-size: 14px;
+.topo-site {
+    background: white;
+    border-bottom: 1px solid #e3e7ef;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.topo-conteudo {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.logo-site {
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #e95ba5;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.menu-site {
+    display: flex;
+    gap: 20px;
 }
 
-body {
-  margin-bottom: 60px;
+    .menu-site a {
+        text-decoration: none;
+        color: #666;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+        .menu-site a:hover {
+            color: #e95ba5;
+        }
+
+.rodape-site {
+    width: 100%;
+    padding: 22px 20px;
+    text-align: center;
+    background: #ffffff;
+    border-top: 1px solid #e3e7ef;
+    color: #777777;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.rodape-conteudo {
+    width: 100%;
+    text-align: center;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
+    .rodape-conteudo p {
+        margin: 0 0 5px 0;
+        font-size: 14px;
+    }
+
+    .rodape-conteudo strong {
+        color: #e95ba5;
+    }
+
+    .rodape-conteudo span {
+        font-size: 12px;
+        color: #999999;
+    }

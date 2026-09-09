@@ -21,6 +21,8 @@ document.getElementById(
 
 let destinatarioSelecionado = null;
 
+let usuariosOnline =[];
+
 const historicoConversas = {};
 
 const mensagensNaoLidas = {};
@@ -51,7 +53,14 @@ conexao.on(
 
         historicoConversas[conversaCom].push({
             remetente: usuario,
-            texto: mensagem
+            texto: mensagem,
+            horario: new Date().toLocaleTimeString(
+                "pt-BR",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            )
         });
 
         const conversaAberta =
@@ -76,6 +85,8 @@ conexao.on(
     "AtualizarUsuarios",
     function (usuarios) {
 
+        usuariosOnline = usuarios;
+
         const lista =
             document.getElementById("listaUsuarios");
 
@@ -98,22 +109,63 @@ conexao.on(
             const item =
                 document.createElement("li");
 
+            item.dataset.usuario = usuario;
             item.textContent = usuario;
+            
 
             item.style.cursor = "pointer";
+
+            if (
+                destinatarioSelecionado &&
+                usuario.toLowerCase() ===
+                destinatarioSelecionado.toLowerCase()
+            ) {
+                item.classList.add(
+                    "usuario-selecionado"
+                );
+            }
 
             item.addEventListener(
                 "click",
                 function () {
 
-                    destinatarioSelecionado =
-                        usuario;
+                    destinatarioSelecionado = usuario;
 
-                    mensagensNaoLidas[usuario] =
-                        false;
+                    mensagensNaoLidas[usuario] = false;
 
+                    // Destaca o usuário selecionado
+                    document
+                        .querySelectorAll("#listaUsuarios li")
+                        .forEach(function (itemLista) {
+                            itemLista.classList.remove("usuario-selecionado");
+                        });
+
+                    item.classList.add("usuario-selecionado");
+
+
+                    // Mostra o nome no topo da conversa
+                    document.getElementById(
+                        "nomeDestinatario"
+                    ).textContent = usuario;
+
+
+
+                    // Esconde a mensagem "Selecione uma conversa"
+                    document.getElementById(
+                        "estadoInicial"
+                    ).style.display = "none";
+
+
+                    // Mostra a caixa de envio
+                    document.getElementById(
+                        "areaEnvio"
+                    ).style.display = "flex";
+
+
+                    // Mostra as mensagens desse usuário
                     mostrarConversa(usuario);
 
+                    atualizarStatusDestinatario();
                     atualizarDestaqueUsuarios();
                 }
             );
@@ -214,9 +266,15 @@ document.getElementById("btnEnviar")
             historicoConversas[
                 destinatarioSelecionado
             ].push({
-
                 remetente: remetente,
-                texto: mensagem
+                texto: mensagem,
+                horario: new Date().toLocaleTimeString(
+                    "pt-BR",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                )
             });
 
             mostrarConversa(
@@ -258,18 +316,70 @@ function mostrarConversa(usuario) {
     const mensagens =
         historicoConversas[usuario] || [];
 
+    const meuUsuario =
+        document.getElementById(
+            "usuario"
+        ).value.trim();
+
     mensagens.forEach(function (mensagem) {
 
         const item =
             document.createElement("li");
 
-        item.textContent =
-            mensagem.remetente +
-            ": " +
+        const texto =
+            document.createElement("span");
+
+        texto.classList.add(
+            "mensagem-texto"
+        );
+
+        texto.textContent =
             mensagem.texto;
+
+
+        const horario =
+            document.createElement("small");
+
+        horario.classList.add(
+            "mensagem-horario"
+        );
+
+        horario.textContent =
+            mensagem.horario || "";
+
+
+        item.appendChild(texto);
+        item.appendChild(horario);
+
+
+        if (
+            mensagem.remetente.toLowerCase() ===
+            meuUsuario.toLowerCase()
+        ) {
+
+            item.classList.add(
+                "mensagem-minha"
+            );
+
+        } else {
+
+            item.classList.add(
+                "mensagem-outro"
+            );
+        }
+
 
         listaMensagens.appendChild(item);
     });
+
+
+    const areaMensagens =
+        document.querySelector(
+            ".mensagens-area"
+        );
+
+    areaMensagens.scrollTop =
+        areaMensagens.scrollHeight;
 }
 
 
@@ -283,28 +393,20 @@ function atualizarDestaqueUsuarios() {
     itens.forEach(function (item) {
 
         const nomeUsuario =
-            item.textContent.replace(
-                " ●",
-                ""
-            );
+            item.dataset.usuario;
 
-        item.textContent =
-            nomeUsuario;
-
-        item.style.fontWeight =
-            "normal";
+        item.classList.remove(
+            "usuario-nao-lido"
+        );
 
         if (
             mensagensNaoLidas[
-                nomeUsuario
+            nomeUsuario
             ]
         ) {
-
-            item.textContent =
-                nomeUsuario + " ●";
-
-            item.style.fontWeight =
-                "bold";
+            item.classList.add(
+                "usuario-nao-lido"
+            );
         }
     });
 }
@@ -325,4 +427,50 @@ document.getElementById("mensagem")
                 ).click();
             }
         }
-    );
+);
+
+function atualizarStatusDestinatario() {
+
+    if (!destinatarioSelecionado) {
+        return;
+    }
+
+    const estaOnline =
+        usuariosOnline.some(function (usuario) {
+
+            return usuario.toLowerCase() ===
+                destinatarioSelecionado.toLowerCase();
+        });
+
+    const status =
+        document.getElementById(
+            "statusDestinatario"
+        );
+
+    if (estaOnline) {
+
+        status.textContent =
+            "● online";
+
+        status.classList.remove(
+            "status-offline"
+        );
+
+        status.classList.add(
+            "status-online-destinatario"
+        );
+
+    } else {
+
+        status.textContent =
+            "● offline";
+
+        status.classList.remove(
+            "status-online-destinatario"
+        );
+
+        status.classList.add(
+            "status-offline"
+        );
+    }
+}

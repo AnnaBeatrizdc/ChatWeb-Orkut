@@ -4,43 +4,123 @@
     ViewData["Title"] = "Chat Web";
 }
 
-<h2>Chat Web</h2>
+<link rel="stylesheet" href="~/css/chat.css" />
 
-<div>
-    <p>
-        Olá, <strong id="nomeUsuarioLogado"></strong>!
-        <span>🟢 Online</span>
-    </p>
+<div class="chat-pagina">
+
+    <div class="chat-container">
+
+        <!-- PERFIL -->
+        <aside class="perfil-card">
+
+            <span class="perfil-titulo">meu perfil</span>
+
+            <div class="perfil-avatar">👤</div>
+
+            <h2 id="nomeUsuarioLogado">
+                Usuário
+            </h2>
+
+            <span class="status-online">
+                ● online
+            </span>
+
+            <div class="perfil-info">
+
+                <div class="perfil-item">
+                    <span>💬</span>
+                    <div>
+                        <strong>conversas</strong>
+                        <small>suas mensagens</small>
+                    </div>
+                </div>
+
+                <div class="perfil-item">
+                    <span>👥</span>
+                    <div>
+                        <strong>amigos</strong>
+                        <small>usuários online</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONVERSA -->
+        <main class="conversa-card">
+
+            <div class="conversa-topo">
+
+                <div>
+                    <span class="conversa-titulo">
+                        Conversa
+                    </span>
+
+                    <p id="nomeDestinatario">
+                        Selecione um usuário para conversar
+                    </p>
+
+                    <span id="statusDestinatario" class="status-destinatario"></span>
+                </div>
+
+            </div>
+
+            <div class="mensagens-area">
+                <div id="estadoInicial" class="estado-inicial">
+                    <div class="estado-icone">💬</div>
+
+                    <h3>Selecione uma conversa</h3>
+
+                    <p>
+                        Escolha um usuário online
+                        para começar a conversar.
+                    </p>
+                </div>
+                <ul id="listaMensagens"></ul>
+            </div>
+
+            <div class="mensagem-envio" id="areaEnvio">
+
+                <input
+                    type="text"
+                    id="mensagem"
+                    placeholder="Digite uma mensagem..."
+                    autocomplete="off"
+                />
+
+                <button id="btnEnviar">
+                    Enviar
+                </button>
+
+            </div>
+
+        </main>
+
+
+        <!-- USUÁRIOS ONLINE -->
+        <aside class="usuarios-card">
+
+            <h3>
+                Amigos online
+            </h3>
+
+            <p class="usuarios-subtitulo">
+                Escolha alguém para conversar
+            </p>
+
+            <ul id="listaUsuarios"></ul>
+
+        </aside>
+
+    </div>
+
 </div>
+
 
 <input type="hidden" id="usuario" />
 
-<hr />
-
-<h3>Usuários online</h3>
-
-<ul id="listaUsuarios"></ul>
-
-<hr />
-
-<div>
-    <label>Mensagem:</label>
-
-    <input type="text"
-           id="mensagem"
-           placeholder="Digite uma mensagem"
-           autocomplete="off" />
-
-    <button id="btnEnviar">
-        Enviar
-    </button>
-</div>
-
-<hr />
-
-<h3>Mensagens</h3>
-
-<ul id="listaMensagens"></ul>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
 

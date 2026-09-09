@@ -1,19 +1,42 @@
 ﻿@page
 @model IndexModel
+
 @{
     ViewData["Title"] = "Entrar";
 }
 
-<div class="login-pagina">
+<link rel="stylesheet" href="~/css/login.css" />
 
-    <div class="login-caixa">
+<div class="pagina-login">
 
-        <div class="login-logo">
-            <h1>Chat Web</h1>
-            <p>Conecte-se com seus amigos 💬</p>
-        </div>
+    <div class="login-container">
 
-        <div class="login-formulario">
+        <section class="login-apresentacao">
+
+            <h1>
+                conecte-se com seus amigos
+            </h1>
+
+            <p>
+                Um espaço simples para conversar,
+                trocar mensagens e ficar conectado.
+            </p>
+
+            <div class="login-destaques">
+                <span>💗 pessoas</span>
+                <span>💬 conversas</span>
+                <span>🌐 online</span>
+            </div>
+        </section>
+
+
+        <section class="login-card">
+
+            <h2>Bem-vindo(a)!</h2>
+
+            <p>
+                Digite seu nome para entrar no chat.
+            </p>
 
             <label for="nomeUsuario">
                 Nome de usuário
@@ -29,34 +52,49 @@
                 Entrar
             </button>
 
-        </div>
+        </section>
 
     </div>
 
 </div>
 
+
 <script>
-    const btnEntrar = document.getElementById("btnEntrar");
-    const nomeUsuario = document.getElementById("nomeUsuario");
+    const btnEntrar =
+        document.getElementById("btnEntrar");
 
-    btnEntrar.addEventListener("click", entrarNoChat);
+    const nomeUsuario =
+        document.getElementById("nomeUsuario");
 
-    nomeUsuario.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            entrarNoChat();
+    btnEntrar.addEventListener(
+        "click",
+        entrarNoChat
+    );
+
+    nomeUsuario.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Enter") {
+                entrarNoChat();
+            }
         }
-    });
+    );
 
     function entrarNoChat() {
 
-        const nome = nomeUsuario.value.trim();
+        const nome =
+            nomeUsuario.value.trim();
 
         if (nome === "") {
+
             alert("Digite seu nome.");
+
             return;
         }
 
         window.location.href =
-            "/Chat?nome=" + encodeURIComponent(nome);
+            "/Chat?nome=" +
+            encodeURIComponent(nome);
     }
 </script>
