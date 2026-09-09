@@ -1,0 +1,47 @@
+﻿@page
+@model ChatWeb_Orkut.Pages.ChatModel
+@{
+    ViewData["Title"] = "Chat Web";
+}
+
+<h2>Chat Web</h2>
+
+<div>
+    <p>
+        Olá, <strong id="nomeUsuarioLogado"></strong>!
+        <span>🟢 Online</span>
+    </p>
+</div>
+
+<input type="hidden" id="usuario" />
+
+<hr />
+
+<h3>Usuários online</h3>
+
+<ul id="listaUsuarios"></ul>
+
+<hr />
+
+<div>
+    <label>Mensagem:</label>
+
+    <input type="text"
+           id="mensagem"
+           placeholder="Digite uma mensagem"
+           autocomplete="off" />
+
+    <button id="btnEnviar">
+        Enviar
+    </button>
+</div>
+
+<hr />
+
+<h3>Mensagens</h3>
+
+<ul id="listaMensagens"></ul>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+
+<script src="~/js/chat.js"></script>

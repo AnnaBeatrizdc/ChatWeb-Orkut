@@ -1,54 +1,62 @@
 ﻿@page
 @model IndexModel
-
 @{
-    ViewData["Title"] = "Chat Web";
+    ViewData["Title"] = "Entrar";
 }
 
-<h2>Chat Web</h2>
+<div class="login-pagina">
 
-<div>
-    <label>Usuário:</label>
+    <div class="login-caixa">
 
-    <input type="text"
-           id="usuario"
-           placeholder="Digite seu nome"
-           autocomplete="off"
-           spellcheck="false" />
+        <div class="login-logo">
+            <h1>Chat Web</h1>
+            <p>Conecte-se com seus amigos 💬</p>
+        </div>
 
-    <button id="btnConectar" disabled>
-        Conectar
-    </button>
+        <div class="login-formulario">
+
+            <label for="nomeUsuario">
+                Nome de usuário
+            </label>
+
+            <input type="text"
+                   id="nomeUsuario"
+                   placeholder="Digite seu nome"
+                   autocomplete="off" />
+
+            <button type="button"
+                    id="btnEntrar">
+                Entrar
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 
-<hr />
+<script>
+    const btnEntrar = document.getElementById("btnEntrar");
+    const nomeUsuario = document.getElementById("nomeUsuario");
 
-<h3>Usuários online</h3>
+    btnEntrar.addEventListener("click", entrarNoChat);
 
-<ul id="listaUsuarios"></ul>
+    nomeUsuario.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            entrarNoChat();
+        }
+    });
 
+    function entrarNoChat() {
 
-<hr />
+        const nome = nomeUsuario.value.trim();
 
-<div>
-    <label>Mensagem:</label>
+        if (nome === "") {
+            alert("Digite seu nome.");
+            return;
+        }
 
-    <input type="text"
-           id="mensagem"
-           placeholder="Digite uma mensagem"
-           autocomplete="off" />
-
-    <button id="btnEnviar">
-        Enviar
-    </button>
-</div>
-
-<hr />
-
-<h3>Mensagens</h3>
-
-<ul id="listaMensagens"></ul>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
-
-<script src="~/js/chat.js"></script>
+        window.location.href =
+            "/Chat?nome=" + encodeURIComponent(nome);
+    }
+</script>

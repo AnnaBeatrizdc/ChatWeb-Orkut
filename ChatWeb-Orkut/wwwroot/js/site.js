@@ -2,6 +2,23 @@
     .withUrl("/chatHub")
     .build();
 
+const parametros = new URLSearchParams(
+    window.location.search
+);
+
+const nomeUsuario = parametros.get("nome");
+
+if (!nomeUsuario || nomeUsuario.trim() === "") {
+    window.location.href = "/";
+}
+
+document.getElementById("usuario").value =
+    nomeUsuario.trim();
+
+document.getElementById(
+    "nomeUsuarioLogado"
+).textContent = nomeUsuario.trim();
+
 let destinatarioSelecionado = null;
 
 const historicoConversas = {};
@@ -112,61 +129,33 @@ conexao.on(
 conexao.start()
     .then(function () {
 
-        console.log("Conectado ao servidor!");
+        console.log(
+            "Conectado ao servidor!"
+        );
 
-        document.getElementById(
-            "btnConectar"
-        ).disabled = false;
+        const usuario =
+            document.getElementById(
+                "usuario"
+            ).value.trim();
+
+        return conexao.invoke(
+            "ConectarUsuario",
+            usuario
+        );
+    })
+    .then(function () {
+
+        console.log(
+            "Usuário conectado com sucesso!"
+        );
     })
     .catch(function (erro) {
 
         console.error(
-            "Erro ao conectar com o servidor:",
+            "Erro ao conectar:",
             erro
         );
     });
-
-
-document.getElementById("btnConectar")
-    .addEventListener(
-        "click",
-        function () {
-
-            const usuario =
-                document.getElementById("usuario")
-                    .value
-                    .trim();
-
-            if (usuario === "") {
-
-                alert("Digite seu nome.");
-
-                return;
-            }
-
-            conexao.invoke(
-                "ConectarUsuario",
-                usuario
-            )
-                .then(function () {
-
-                    document.getElementById(
-                        "usuario"
-                    ).disabled = true;
-
-                    document.getElementById(
-                        "btnConectar"
-                    ).disabled = true;
-                })
-                .catch(function (erro) {
-
-                    console.error(
-                        "Erro ao conectar usuário:",
-                        erro
-                    );
-                });
-        }
-    );
 
 
 document.getElementById("btnEnviar")
