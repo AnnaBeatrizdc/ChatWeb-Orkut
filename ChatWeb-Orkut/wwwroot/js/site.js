@@ -179,7 +179,7 @@ conexao.on(
         });
 
         atualizarDestaqueUsuarios();
-        atualizarStatusDestinatario();
+        atualizarStatusDestinatario(); 
     }
 );
 

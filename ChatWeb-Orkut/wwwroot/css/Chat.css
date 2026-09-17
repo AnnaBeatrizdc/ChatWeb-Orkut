@@ -8,7 +8,8 @@
     width: 100%;
     min-height: calc(100vh - 130px);
     padding: 20px;
-    background: linear-gradient( 135deg, #f3f5fb, #fdf1f7 );
+    margin: 0;
+    background: linear-gradient(135deg, #f3f5fb, #fdf1f7);
 }
 
 
@@ -451,7 +452,6 @@
     border-radius: 10px;
 }
 
-
 /* =========================
    RESPONSIVO
 ========================= */
@@ -493,4 +493,173 @@
     .mensagem-envio button {
         padding: 0 15px;
     }
+}
+
+/* =========================
+   MODO ESCURO - CHAT
+========================= */
+
+/* Fundo geral */
+body.tema-escuro .chat-pagina {
+    background: linear-gradient( 135deg, #171923, #211a24 );
+}
+
+/* Cards principais */
+body.tema-escuro .perfil-card,
+body.tema-escuro .conversa-card,
+body.tema-escuro .usuarios-card {
+    background: #222531;
+    border-color: #363a48;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   PERFIL
+========================= */
+
+body.tema-escuro .perfil-avatar {
+    background: linear-gradient( 135deg, #30395f, #573348 );
+}
+
+body.tema-escuro .perfil-card h2 {
+    color: #f2f2f5;
+}
+
+body.tema-escuro .perfil-titulo {
+    color: #ed86b8;
+}
+
+body.tema-escuro .perfil-info {
+    border-color: #3a3d49;
+}
+
+body.tema-escuro .perfil-item:hover {
+    background: #2c303c;
+}
+
+body.tema-escuro .perfil-item strong {
+    color: #aebaff;
+}
+
+body.tema-escuro .perfil-item small {
+    color: #9295a2;
+}
+
+/* =========================
+   TOPO DA CONVERSA
+========================= */
+
+body.tema-escuro .conversa-topo {
+    background: #292e42;
+    border-bottom-color: #d96fa4;
+}
+
+body.tema-escuro .conversa-titulo {
+    color: #ed86b8;
+}
+
+body.tema-escuro #nomeDestinatario {
+    color: #c3cbff;
+}
+
+/* =========================
+   MENSAGENS
+========================= */
+
+body.tema-escuro .mensagens-area {
+    background: #1c1f29;
+}
+
+/* Minha mensagem */
+body.tema-escuro #listaMensagens li.mensagem-minha {
+    background: #563147;
+    border-color: #75435f;
+    color: #f6dbe9;
+}
+
+/* Mensagem da outra pessoa */
+body.tema-escuro #listaMensagens li.mensagem-outro {
+    background: #303852;
+    border-color: #414d72;
+    color: #e1e5ff;
+}
+
+/* Tela antes de selecionar contato */
+body.tema-escuro .estado-inicial {
+    color: #9da1af;
+}
+
+body.tema-escuro .estado-icone {
+    background: linear-gradient( 135deg, #303852, #543247 );
+}
+
+body.tema-escuro .estado-inicial h3 {
+    color: #e3e4e8;
+}
+
+/* =========================
+   ENVIO DE MENSAGEM
+========================= */
+
+body.tema-escuro .mensagem-envio {
+    background: #222531;
+    border-top-color: #393d49;
+}
+
+    body.tema-escuro .mensagem-envio input {
+        background: #2b2e3a;
+        border-color: #414553;
+        color: #ffffff;
+    }
+
+        body.tema-escuro .mensagem-envio input::placeholder {
+            color: #9295a2;
+        }
+
+        body.tema-escuro .mensagem-envio input:focus {
+            border-color: #e38ab5;
+            box-shadow: 0 0 0 3px rgba(227, 138, 181, 0.18);
+        }
+
+/* =========================
+   LISTA DE USUÁRIOS
+========================= */
+
+body.tema-escuro .usuarios-card h3 {
+    background: #292e42;
+    border-bottom-color: #d96fa4;
+    color: #aebaff;
+}
+
+body.tema-escuro .usuarios-subtitulo {
+    color: #9295a2;
+}
+
+body.tema-escuro #listaUsuarios li {
+    color: #d6d8df;
+}
+
+    body.tema-escuro #listaUsuarios li:hover {
+        background: #382b37;
+        color: #f08bbb;
+    }
+
+    body.tema-escuro #listaUsuarios li.usuario-selecionado {
+        background: linear-gradient( 90deg, #303852, #49303f );
+        color: #c5ceff;
+        border-left-color: #d96fa4;
+    }
+
+    body.tema-escuro #listaUsuarios li.usuario-nao-lido {
+        background: #422d3a;
+        color: #ef91be;
+    }
+
+/* =========================
+   SCROLL
+========================= */
+
+body.tema-escuro .mensagens-area::-webkit-scrollbar-thumb,
+body.tema-escuro .usuarios-card::-webkit-scrollbar-thumb {
+    background: #484d5c;
 }

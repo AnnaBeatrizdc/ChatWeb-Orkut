@@ -18,12 +18,24 @@
             </a>
 
             <nav class="menu-site">
-                <a asp-page="/Index">Login</a>
+
+                <a asp-page="/Index" class="btn-login-header">
+                    <span>👤</span>
+                    <span>Login</span>
+                </a>
+
+                <button type="button"
+                        id="btnTema"
+                        class="btn-tema-header"
+                        title="Alterar tema">
+                    <span id="iconeTema">🌙</span>
+                </button>
+
             </nav>
 
         </div>
     </header>
-    <div class="container">
+    <div class="container-fluid p-0">
         <main role="main">
             @RenderBody()
         </main>
@@ -44,6 +56,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/tema.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
