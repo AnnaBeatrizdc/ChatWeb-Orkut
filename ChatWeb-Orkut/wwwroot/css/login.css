@@ -149,3 +149,89 @@ body {
         font-size: 38px;
     }
 }
+
+/* =========================
+   MODO ESCURO - LOGIN
+========================= */
+
+body.tema-escuro {
+    background: #171923;
+    color: #f5f5f7;
+}
+
+    /* Área geral */
+    body.tema-escuro .pagina-login {
+        background: #171923;
+    }
+
+    /* Container principal */
+    body.tema-escuro .login-container {
+        background: #222531;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Lado de apresentação */
+    body.tema-escuro .login-apresentacao {
+        background: linear-gradient( 135deg, #252b47, #39273b );
+    }
+
+        body.tema-escuro .login-apresentacao h1 {
+            color: #91a2ff;
+        }
+
+        body.tema-escuro .login-apresentacao h2 {
+            color: #f4f4f6;
+        }
+
+        body.tema-escuro .login-apresentacao p {
+            color: #c4c5cc;
+        }
+
+    /* Etiquetas: pessoas, conversas, online */
+    body.tema-escuro .login-destaques span {
+        background: #303440;
+        color: #e5e5ea;
+    }
+
+    /* Área do formulário */
+    body.tema-escuro .login-card {
+        background: #222531;
+    }
+
+        body.tema-escuro .login-card h2 {
+            color: #ffffff;
+        }
+
+        body.tema-escuro .login-card p {
+            color: #b9bac2;
+        }
+
+        body.tema-escuro .login-card label {
+            color: #dedee3;
+        }
+
+        /* Campo de usuário */
+        body.tema-escuro .login-card input {
+            background: #2b2e3a;
+            border-color: #414553;
+            color: #ffffff;
+        }
+
+            body.tema-escuro .login-card input::placeholder {
+                color: #9295a2;
+            }
+
+            body.tema-escuro .login-card input:focus {
+                border-color: #e95ba5;
+                box-shadow: 0 0 0 3px rgba(233, 91, 165, 0.18);
+            }
+
+        /* Botão entrar */
+        body.tema-escuro .login-card button {
+            background: #e95ba5;
+            color: white;
+        }
+
+            body.tema-escuro .login-card button:hover {
+                background: #f06bb1;
+            }
