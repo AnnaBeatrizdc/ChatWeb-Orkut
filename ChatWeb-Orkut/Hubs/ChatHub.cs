@@ -5,8 +5,9 @@ namespace ChatWeb.Hubs
 {
     public class ChatHub : Hub
     {
-        private static readonly ConcurrentDictionary<string, string>
-            usuariosConectados = new();
+        private static readonly ConcurrentDictionary<string, string> usuariosConectados = new();
+
+        private static readonly ConcurrentDictionary<string, bool> statusUsuarios = new(StringComparer.OrdinalIgnoreCase);
 
         public async Task ConectarUsuario(string nomeUsuario)
         {
@@ -18,6 +19,7 @@ namespace ChatWeb.Hubs
             }
 
             usuariosConectados[Context.ConnectionId] = nomeUsuario;
+            statusUsuarios[nomeUsuario] = true;
 
             await AtualizarListaUsuarios();
         }
@@ -51,10 +53,10 @@ namespace ChatWeb.Hubs
         public override async Task OnDisconnectedAsync(
             Exception? exception)
         {
-            usuariosConectados.TryRemove(
-                Context.ConnectionId,
-                out _
-            );
+            if (usuariosConectados.TryRemove(Context.ConnectionId,out string? nomeUsuario))
+            {
+                statusUsuarios[nomeUsuario] = false;
+            }
 
             await AtualizarListaUsuarios();
 
@@ -63,12 +65,14 @@ namespace ChatWeb.Hubs
 
         private async Task AtualizarListaUsuarios()
         {
-            List<string> usuarios =
-                usuariosConectados
-                    .Values
-                    .Distinct(StringComparer.OrdinalIgnoreCase)
-                    .OrderBy(nome => nome)
-                    .ToList();
+            var usuarios = statusUsuarios
+                .Select(usuario => new
+                {
+                    nome = usuario.Key,
+                    online = usuario.Value
+                })
+                .OrderBy(usuario => usuario.nome)
+                .ToList();
 
             await Clients.All.SendAsync(
                 "AtualizarUsuarios",
