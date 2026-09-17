@@ -378,7 +378,8 @@
         transition: 0.2s;
     }
 
-        #listaUsuarios li::before {
+        /* Bolinha do usuário ONLINE */
+        #listaUsuarios li.usuario-online::before {
             content: "";
             position: absolute;
             left: 13px;
@@ -386,6 +387,19 @@
             width: 8px;
             height: 8px;
             background: #4caf50;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Bolinha do usuário OFFLINE */
+        #listaUsuarios li.usuario-offline::before {
+            content: "";
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            background: #999999;
             border-radius: 50%;
             transform: translateY(-50%);
         }

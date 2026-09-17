@@ -100,7 +100,7 @@ conexao.on(
         usuarios.forEach(function (usuario) {
 
             if (
-                usuario.toLowerCase() ===
+                usuario.nome.toLowerCase() ===
                 meuUsuario.toLowerCase()
             ) {
                 return;
@@ -109,15 +109,20 @@ conexao.on(
             const item =
                 document.createElement("li");
 
-            item.dataset.usuario = usuario;
-            item.textContent = usuario;
-            
+            item.dataset.usuario = usuario.nome;
+            item.textContent = usuario.nome;
+
+            if (usuario.online) {
+                item.classList.add("usuario-online");
+            } else {
+                item.classList.add("usuario-offline");
+            }
 
             item.style.cursor = "pointer";
 
             if (
                 destinatarioSelecionado &&
-                usuario.toLowerCase() ===
+                usuario.nome.toLowerCase() ===
                 destinatarioSelecionado.toLowerCase()
             ) {
                 item.classList.add(
@@ -129,9 +134,9 @@ conexao.on(
                 "click",
                 function () {
 
-                    destinatarioSelecionado = usuario;
+                    destinatarioSelecionado = usuario.nome;
 
-                    mensagensNaoLidas[usuario] = false;
+                    mensagensNaoLidas[usuario.nome] = false;
 
                     // Destaca o usuário selecionado
                     document
@@ -146,7 +151,7 @@ conexao.on(
                     // Mostra o nome no topo da conversa
                     document.getElementById(
                         "nomeDestinatario"
-                    ).textContent = usuario;
+                    ).textContent = usuario.nome;
 
 
 
@@ -163,7 +168,7 @@ conexao.on(
 
 
                     // Mostra as mensagens desse usuário
-                    mostrarConversa(usuario);
+                    mostrarConversa(usuario.nome);
 
                     atualizarStatusDestinatario();
                     atualizarDestaqueUsuarios();
@@ -174,6 +179,7 @@ conexao.on(
         });
 
         atualizarDestaqueUsuarios();
+        atualizarStatusDestinatario();
     }
 );
 
@@ -438,8 +444,9 @@ function atualizarStatusDestinatario() {
     const estaOnline =
         usuariosOnline.some(function (usuario) {
 
-            return usuario.toLowerCase() ===
-                destinatarioSelecionado.toLowerCase();
+            return usuario.nome.toLowerCase() ===
+                destinatarioSelecionado.toLowerCase()
+                && usuario.online;
         });
 
     const status =
